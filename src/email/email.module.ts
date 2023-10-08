@@ -5,6 +5,6 @@ import { RabbitMqModule } from 'src/rabbit-mq/rabbit-mq.module';
 @Module({
   providers: [EmailService],
   exports: [EmailService],
-  imports: [RabbitMqModule]
+  imports: [RabbitMqModule],
 })
 export class EmailModule {}

@@ -1,11 +1,10 @@
+import './setup';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from 'src/app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
-import { config } from 'dotenv';
 
 async function bootstrap() {
-  config();
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     abortOnError: false,
   });

@@ -11,12 +11,12 @@ import { RabbitMqModule } from 'src/rabbit-mq/rabbit-mq.module';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({
       secret: 'secret',
-        signOptions: { expiresIn: '60m' },
+      signOptions: { expiresIn: '60m' },
     }),
-    RabbitMqModule
+    RabbitMqModule,
   ],
   controllers: [UsersController],
   providers: [UserService],
-  exports: [UserService]
+  exports: [UserService],
 })
 export class UsersModule {}

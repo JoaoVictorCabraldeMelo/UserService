@@ -12,9 +12,9 @@ import { RabbitMqModule } from 'src/rabbit-mq/rabbit-mq.module';
     UsersModule,
     AuthModule,
     MongooseModule.forFeature([{ name: Task.name, schema: TaskSchema }]),
-    RabbitMqModule
+    RabbitMqModule,
   ],
   providers: [TasksService],
-  controllers: [TasksController]
+  controllers: [TasksController],
 })
 export class TasksModule {}

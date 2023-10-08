@@ -1,12 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId, Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import { IsMongoId, IsString } from 'class-validator';
 
 export type TaskDocument = Task & Document;
 
 @Schema()
 export class Task {
-
   @Prop({ required: true })
   @IsString()
   title: string;
@@ -17,7 +16,7 @@ export class Task {
 
   @Prop({ required: true })
   @IsMongoId()
-  userId: string;
+  userId: Types.ObjectId;
 
   @Prop({ default: Date.now, isRequired: false })
   created_at: Date;

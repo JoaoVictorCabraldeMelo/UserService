@@ -9,9 +9,12 @@ import { IsAdminGuard } from './is-admin/is-admin.guard';
 @Module({
   providers: [AuthService, JwtStrategy, IsAdminGuard],
   controllers: [AuthController],
-  imports: [UsersModule, JwtModule.register({
-    secret: 'secret',
-    signOptions: { expiresIn: '60m' },
-  })]
+  imports: [
+    UsersModule,
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: { expiresIn: '60m' },
+    }),
+  ],
 })
 export class AuthModule {}

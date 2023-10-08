@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Task, TaskDocument } from './task.schema';
@@ -8,12 +8,12 @@ import { RabbitMqService } from 'src/rabbit-mq/rabbit-mq.service';
 export class TasksService implements OnModuleInit {
   constructor(
     @InjectModel('Task') private readonly taskModel: Model<TaskDocument>,
-    private readonly rabbitMqService: RabbitMqService
-  ) { }
+    private readonly rabbitMqService: RabbitMqService,
+  ) {}
 
   async onModuleInit(): Promise<void> {
     this.rabbitMqService.subscribeToQueue('user_created', (message) => {
-      let user = JSON.parse(message);
+      const user = JSON.parse(message);
       this.create({
         title: 'Primeira Tarefa 🚀',
         userId: user._id,
@@ -35,7 +35,11 @@ export class TasksService implements OnModuleInit {
   }
 
   async delete(id: string): Promise<Task> {
-    return await this.taskModel.findByIdAndUpdate(id, { $set: { deleted_at: Date.now() } }, { new: true });
+    return await this.taskModel.findByIdAndUpdate(
+      id,
+      { $set: { deleted_at: Date.now() } },
+      { new: true },
+    );
   }
 
   async findOneUser(id: string, userId: string): Promise<Task> {
@@ -53,5 +57,4 @@ export class TasksService implements OnModuleInit {
   async findOne(id: string): Promise<Task> {
     return await this.taskModel.findOne({ _id: id }).exec();
   }
-
 }
