@@ -7,7 +7,8 @@ export class RabbitMqService implements OnModuleInit, OnModuleDestroy {
   private channel: Channel;
 
   async onModuleInit(): Promise<void> {
-    this.connection = await connect('amqp://joao:123123@localhost:5672');
+    const rabbitMQUri = process.env.RABBITMQ_URI || "amqp://joao:123123@localhost:5672";
+    this.connection = await connect(rabbitMQUri);
     this.channel = await this.connection.createChannel();
   }
 
